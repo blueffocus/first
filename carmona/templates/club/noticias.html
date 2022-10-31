@@ -1,0 +1,71 @@
+<!--% load el_pagination_tags %}
+
+% paginate 5 entries %}-->
+
+{% for post in entries %}
+
+
+    {% if post.visible == True and post.seccion_id == 1 and post.fecha_publicacion|date:"ymd" <= hoy|date:"ymd" %}
+
+
+        <div style="height: 100%; margin-botton:2%;padding: 0;" class="col-lg-12 col-xs-12 polaroid">
+            <div class="col-lg-3 col-xs-12 col-md-12 img-responsive"
+                 style="min-height: 270px; height:280px; min-width: 150px;max-width: 100%; margin: 0; padding: 0px; background-image: url({{ post.cartel }}); background-size:300px; vertical-align: middle ;background-repeat:no-repeat ; background-position:center ">
+            </div>
+            <div class="col-lg-9 col-xs-12" style="height: 80%;">
+                <a href="[% url 'ficha' id=post.id %]" style="text-decoration:none"><h2
+                        style="font-weight:300;">{{ post.titulo|upper|truncatewords:20 }}</h2></a>
+                {% autoescape off %}
+
+                    <p style="text-align: justify; margin:20px 0">{{ post.texto|truncatewords:70|striptags }}</p>
+
+                {% endautoescape %}
+                {% if post.texto|wordcount >= 60 %}
+
+                    <p style="margin:0;padding:0; text-align: right"><a class="button btn-bitbucket btn" href="ficha/{{ post.id }}">
+                        Ver más
+                        <i class='glyphicon glyphicon-chevron-right'></i>
+                    </a></p>
+                {% endif %}
+                <div class="row">
+                    <hr class="col-lg-11 col-xs-12 pull-right">
+                    <div class="col-lg-12 col-xs-12"
+                         style="height: 100%; text-align: right; margin: 0px  -10px; padding: 0px; font-size: 0.85em; color: rgba(119, 119, 119, 0.94);">
+                        {{ post.fecha_publicacion }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    {% endif %}
+
+
+
+
+{% endfor %}
+
+<div style="height: 100%; margin-botton:2%;padding: 0;" class="col-lg-12 col-xs-12 polaroid">
+
+            <div class="col-lg-12 col-xs-12" style="height: 100%;">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- anuncio1v -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2140157842826224"
+     data-ad-slot="5460101583"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+            </div>
+        </div>
+
+
+
+<!--% show_more %}
+
+

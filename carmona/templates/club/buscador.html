@@ -1,0 +1,75 @@
+{% extends "club/index.html" %}
+{% block content %}
+    <ul class="nav nav-pills">
+        {% if keyword  == '2' %}
+            <li role="presentation" class="tab"><a href="{% url 'buscarF' %}3={{ query }}">Todas</a></li>
+            <li role="presentation" class="tab"><a href="{% url 'buscarF' %}1={{ query }}">Proximas</a></li>
+            <li role="presentation" class="tab active"><a href="{% url 'buscarF' %}2={{ query }}">Antiguas<span
+                    class="badge">{{ buscar2.count }}</span> </a></li>
+        {% elif  keyword == '1' %}
+            <li role="presentation" class="tab "><a href="{% url 'buscarF' %}3={{ query }}">Todas</a></li>
+            <li role="presentation" class="tab active"><a href="{% url 'buscarF' %}1={{ query }}">Proximas<span
+                    class="badge">{{ buscar2.count }}</span></a></li>
+            <li role="presentation" class="tab"><a href="{% url 'buscarF' %}2={{ query }}">Antiguas</a></li>
+        {% else %}
+            <li role="presentation" class="tab active"><a href="{% url 'buscarF' %}3={{ query }}">Todas<span
+                    class="badge">{{ buscar2.count }}</span></a></li>
+            <li role="presentation" class="tab"><a href="{% url 'buscarF' %}1={{ query }}">Proximas</a></li>
+            <li role="presentation" class="tab "><a href="{% url 'buscarF' %}2={{ query }}">Antiguas</a></li>
+        {% endif %}
+    </ul>
+    <div class="panel panel-body" style="margin: 10px auto; padding: 20px 5px ">
+        {% if query == none or query == "" %}
+            <h3>{{ query }}</h3>
+            <div style="background-image: url('/static/img/imagenes/sin_resultados.png'); background-size: auto; height: 400px;background-repeat: no-repeat; background-position: center "></div>
+        {% elif buscar1.count > 0 or buscar2.count > 0 or buscar3.count > 0 %}
+            {% for carrera in buscar2 %}
+                <div class="col-lg-3 col-xs-6 caja-buscador" style="margin: 10px auto">
+                    <a href="{% url 'carrera' id=carrera.id %}">
+                        <div class="caja-buscador-div">
+                            {% if carrera.fecha.date > hoy.date %}
+                                <div class="col-lg-12 tituloH3-buscador-f">
+                                    <h6>{{ carrera.titulo|upper }}</h6>
+                                </div>
+
+                            {% elif carrera.fecha|date:"Y" == "1" %}
+                                <div class="col-lg-12 tituloH3-buscador-f" style="background:#aa5544">
+                                    <h6>{{ carrera.titulo|upper }}</h6>
+                                </div>
+                            {% else %}
+                                <div class="col-lg-12 tituloH3-buscador-p">
+                                    <h6>{{ carrera.titulo|upper }}</h6>
+                                </div>
+                            {% endif %}
+                            <div class="col-lg-12 caja-cartel-buscador">
+                                <div class="col-lg-12 col-xs-12 cartel-buscador"
+                                     style="background-image: url({{ carrera.cartel }});"></div>
+                                <div class="caja1-buscar col-lg-12 col-md-12 col-xs-12"
+                                     style="height: 100%; padding: 15px 10px; border-top:1px solid rgba(150,150,150,0.5)">
+                                    <h5>
+                                        {{ carrera.ciudad }}
+                                        <span style="font-size: small; opacity: 0.7">({{ carrera.provincia }})</span>
+                                    </h5>
+                                    {% if carrera.fecha|date:"Y" == "1" %}
+                                        <h6>Pendiente de confirmar</h6>
+                                    {% else %}
+                                        <h6>{{ carrera.fecha|date }}</h6>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3 style="text-align:center; text-decoration-line: underline"> {{ query }}</h3>
+
+            <div style="background-image: url('/static/img/imagenes/sin_resultados.png'); background-size: auto; height: 400px;background-repeat: no-repeat; background-position: center "></div>
+
+        {% endif %}
+    </div>
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}
+

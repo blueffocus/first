@@ -1,0 +1,110 @@
+{% extends "club/index.html" %}
+{% block content %}
+<!--
+    <div class="polaroid col-lg-12 col-xs-12 pull-left" style="margin-bottom:20px; padding:0;">
+        {% if album.count > 0 %}
+            <h2 class="tituloH2">ALBUMES DE FOTOS</h2>
+            <div style="padding: 15px">
+            {% for a in album %}
+                {% if album.count <= 2 %}
+                    <div class="col-lg-6 col-md-6 col-xs-12" ;
+                         style="margin: 0 auto ;margin-bottom: 10px; text-align: center; height: auto; font-size: 1.6em">
+                        {% if a.foto == "nofoto.jpg" %}
+                            <a href="{{ a.direccion }}" target="_blank" style="text-decoration: none; ">
+                            <div class="img-circle"
+                                 style="height: 120px; width: 120px; text-align: center;font-size:300%;  background-color: {{ color|random }}; color:white; padding-top: 15px; margin: auto">
+                                {{ a.nombre|slice:"1" }}
+                            </div>
+                        {% else %}
+                            <a href="{{ a.direccion }}" target="_blank" style="text-decoration: none; ">
+                            <div>
+                                <img src="{{ a.foto }}" class="img-circle"
+                                     style="height: 120px; width: 120px; padding-top: 0px; margin: auto"/>
+                            </div>
+                        {% endif %}
+                        {{ a.nombre }}
+                        </a>
+                    </div>
+                {% elif album.count == 3 %}
+                    <div class="col-lg-4 col-md-4 col-xs-12" ;
+                         style="margin: 0 auto ;margin-bottom: 10px; text-align: center; height: auto; font-size: 1.6em">
+                        {% if a.foto == "nofoto.jpg" %}
+                            <a href="{{ a.direccion }}" target="_blank" style="text-decoration: none; ">
+                            <div class="img-circle"
+                                 style="height: 120px; width: 120px; text-align: center;font-size:300%;  background-color: {{ color|random }}; color:white; padding-top: 15px; margin: auto">
+                                {{ a.nombre|slice:"1" }}
+                            </div>
+                        {% else %}
+                            <a href="{{ a.direccion }}" target="_blank" style="text-decoration: none; ">
+                            <div>
+                                <img src="{{ a.foto }}" class="img-circle"
+                                     style="height: 120px; width: 120px; padding-top: 0px; margin: auto"/>
+                            </div>
+                        {% endif %}
+                        {{ a.nombre }}
+                        </a>
+                    </div>
+                {% elif album.count >= 4 %}
+                    <div class="col-lg-3 col-md-4 col-xs-12" ;
+                         style="margin: 0 auto ;margin-bottom: 10px; text-align: center; height: auto; font-size: 1.6em">
+                        {% if a.foto == "nofoto.jpg" %}
+                            <a href="{{ a.direccion }}" target="_blank" style="text-decoration: none; ">
+                            <div class="img-circle"
+                                 style="height: 120px; width: 120px; text-align: center;font-size:300%;  background-color: {{ color|random }}; color:white; padding-top: 15px; margin: auto">
+                                {{ a.nombre|slice:"1" }}
+                            </div>
+                        {% else %}
+                            <a href="{{ a.direccion }}" target="_blank" style="text-decoration: none; ">
+                            <div>
+                                <img src="{{ a.foto }}" class="img-circle"
+                                     style="height: 120px; width: 120px; padding-top: 0px; margin: auto"/>
+                            </div>
+                        {% endif %}
+                        {{ a.nombre }}
+                        </a>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        {% else %}
+            <h2>NO HAY NINGUN ALBUM DE FOTO</h2>
+        {% endif %}
+            </div>
+        </div>
+-->
+        <div class="polaroid col-lg-12 col-xs-12 pull-left"
+             style="margin-bottom:20px; padding:0;">
+            <h3 class="tituloH2">FOTOS DE LOS ÚLTIMOS EVENTOS</h3>
+            {% for c in carrera %}
+                <a href="{% url 'carrera' id=c.id %}">
+                    <div class="col-lg-12 col-xs-12 lista {% cycle 'par' 'impar' %}"style="padding: 8px 0; font-size: 13px">
+                        <div class="col-lg-9 col-xs-12">
+                        <span class="col-lg-1 col-xs-12">{{ c.fecha|date:'d/M' }} </span>
+                        <span class="col-lg-7 col-xs-12" style="color:#595959">{{ c.titulo|upper|truncatechars:50 }}</span>
+                        <span class="col-lg-4 col-xs-12">
+                            {% if c.ciudad != '' %}
+                                {{ c.ciudad|title }}
+                            {% endif %}
+                        </span>
+                        </div>
+                        <div class="col-lg-3 col-xs-12" style="text-align: right;text-align: right;">
+                                {% for a in fotos %}
+                                    {% if a.carrera_id == c.id %}
+                                        <a href="{{ a.galeria }}">
+                                            <i class="glyphicon glyphicon-camera" style="padding: 3px"></i>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                        </div>
+                    </div>
+
+
+                </a>
+            {% endfor %}
+        </div>
+
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'club/index.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+<div style="margin:0 auto; padding:0%">
+    <div class="col-lg-12 col-md-12 col-xs-12 polaroid" style="margin-bottom: 20px; padding: 10px">
+        {% for carrera in car %}
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 cuadro-carreras">
+                <div class="calendario-cartel img-responsive" style="background-image:url('{{ carrera.cartel }}')">
+                    <a href="{% url 'carrera' id=carrera.id %}">
+                        <div class="calendario-cartel-capa">
+                            <p>{{ carrera.fecha|date:'D, j M' }}</p>
+                            <p>{{ carrera.titulo|upper }}</p>
+                            {% if carrera.ciudad != '' %}
+                                ({{ carrera.ciudad|title }})
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+        <div class="col-lg-12 col-xs-12 pull-left polaroid" style="margin:0 0 40px 0; padding:0;">
+            <h2 class="tituloH2">PRÓXIMAS CARRERAS</h2>
+
+            {% for a in anio %}
+                <div class="row" style="margin: 0; padding: 0">
+
+                    <h3 class="tituloH3">{{ a }}</h3>
+
+                    {% for c in carrerastodas %}
+
+                        {% if a == c.fecha.year and c.fecha.date >= hoy.date %}
+                              <a href="{% url 'carrera' id=c.id %}">
+                                <div class="col-lg-12 col-xs-12 lista {% cycle 'par' 'impar' %}" style="padding: 8px 0;font-size: 13px">
+                                    <span class="col-lg-1 col-xs-4">{{ c.fecha|date:'d M' }} </span>
+                                    <span class="col-lg-5 col-xs-12" style="color:#595959">{{ c.titulo|upper }}</span>
+                                    <span class="col-lg-4 col-xs-12">{% if c.ciudad != '' %}
+                                        {{ c.ciudad }}{% endif %}</span>
+                                <span class="col-lg-2 col-xs-12"
+                                      style="text-align: right; font-size: smaller; opacity: 0.6;color:#595959">{{ c.fecha|timeuntil }}</span>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}
+

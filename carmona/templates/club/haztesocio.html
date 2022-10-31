@@ -1,0 +1,43 @@
+{% extends 'club/index.html' %}
+{% load staticfiles %}
+{% block content %}
+
+
+    <div class="col-lg-12 col-md-12 col-xs-12 pull-left polaroid" style="margin-bottom: 20px; padding: 10px;text-align: center;">
+        <h1 STYLE="text-align: center; color: #5b80b2; font-family:'Trajan Pro 3';">¡HAZTE SOCIO!</h1>
+        <br>
+        <div class="col-lg-8 col-lg-offset-2 col-xs-12">
+                   <p>Para pertenecer a este Club, debes rellenar el siguiente impreso, pulsa el botón:</p>
+            <hr>
+        <p><a href="/static/archivos/SolicitudInscripción.pdf" class="btn btn-info">AQUÍ</a></p>
+            <hr>
+        <p>Una vez completado, entregarlo en nuestra Sede Social, los viernes a partir de las 21:00 horas, en San Fernando, Plaza Emperador Carlos S/N.</p>
+            <hr>
+
+            <ul style="text-align: left">
+                    <span style="text-decoration: underline">REQUISITOS:</span>
+                <li> Una fotografía tamaño carné.</li>
+                <li> Fotocopia DNI.</li>
+                <li> Cuota de inscripción al club 6€</li>
+                <li> Cuota mensual del club 5€</li>
+            </ul>
+            <hr>
+            <ul style="text-align: justify">
+                <span style="text-decoration: underline">NOTAS:</span>
+                <li>El Club no se hace responsable de ningún desplazamiento de los corredores, como consta en el art. 12 del Reglamento de Régimen Interior del Club (RRI).</li>
+                <li>Se dará de baja a todo socio, que no pague tres cuotas sin justificación. (Art. 6 del RRI).</li>
+                <li>Todo socio deberá acatar las normas establecidas por el Club.</li>
+            </ul>
+            <hr>
+
+
+        <p>Si tienes alguna duda puedes contactar con nosotros en las siguientes direcciones de correo:
+        <a href="mailto:admin1@clubcarmonapaez.com" style="color: #2e2e2e"> clubatletismocarmonapaez@gmail.com</a></p>
+        </div>
+
+    </div>
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}
+

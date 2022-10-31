@@ -1,0 +1,84 @@
+{% extends 'club/index.html' %}
+
+{% block content_login %}
+ </div>
+    <div class="col-lg-12">
+    <div class="container" style="height: 100%;padding: 3% 0">
+
+        {% if form.errors|length > 0 %}
+            <div class="row">
+                <div class="alert alert-danger col-lg-4 col-lg-offset-4" style="margin-top: 2%">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {% for e in form.errors.values %}
+                        {{ e }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        <div class="col-lg-4 col-lg-offset-4"
+             style="background-color: rgba(0,0,0,0.03); height:auto; border-radius: 5px; margin-bottom: 20px;">
+            {% if request.user.is_authenticated %}
+                <h3>Ya estas registrado</h3>
+            {% else %}
+
+                <form class="col-lg-12" method="post"
+                      style="font-size: 14px;font-family: Roboto;font-weight: 300; padding: 20px; color:#2e2e2e">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="checkbox" class="micheckbox" value="3"> He leído y acepto la <a data-toggle="modal"
+                                                                                                 data-target="#avisolegal"
+                                                                                                 style="cursor: pointer;">
+                    Politica de privacidad</a>
+
+                    <div style="margin: 25px 0">
+                        <input class="col-lg-8 col-lg-offset-2 btn btn-warning submit" type="submit" value="Registrar"
+                               style="color:whitesmoke; font-size: 14px; font-weight: 500">
+                    </div>
+                </form>
+            {% endif %}
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+    <script>
+        $("input[type=submit]").attr("disabled", "enable");
+        $(":input[type='usuario']:enabled:visible:first").focus();
+        $(".micheckbox").on('change', function () {
+            if ($(this).is(':checked')) {
+                 $("input[type=submit]").removeAttr("disabled");
+            } else {
+                 $("input[type=submit]").attr("disabled", "disabled");
+            }
+        });
+    </script>
+
+
+
+{% endblock %}
+
+
+
+
+<div class="modal fade" id="protecciondedatos" tabindex="1" style="z-index:9999999;" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            {% include 'club/proteccion-de-datos.html' %}
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="avisolegal" tabindex="1" style="z-index:9999999;" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            {% include 'club/aviso-legal.html' %}
+        </div>
+    </div>
+</div>

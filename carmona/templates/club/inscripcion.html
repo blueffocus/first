@@ -1,0 +1,62 @@
+{% extends 'club/index.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <div class="col-lg-12 col-xs-12 polaroid pull-left" id="ins"
+         style="margin-botton:20px; font-size: 1.3em; text-align: right">
+        <div class="alert-danger" style="font-size: 1.3em; text-align: center;">{{ fail }}</div>
+
+        <div class="alert-info" style="font-size: 1.3em; text-align: center;padding:0; margin: 0">{{ ok }}</div>
+
+        <form method="POST" class="col-lg-10 col-xs-12 col-lg-offset-1" id="formulario" style="margin: 40px 0 0 0; padding: 0">{% csrf_token %}
+            <div style="margin: 10px 0;" class="col-lg-12 col-xs-12"><span class="col-lg-3">Dirección email:</span>
+                <span class="col-lg-9 col-xs-12">{{ formulario.email }}</span>
+            </div>
+
+            <div style="margin: 10px 0; " class="col-lg-12 col-xs-12">
+                <span class="col-lg-3 col-xs-12" style="margin:10px 0;">Nº Socio:</span>
+                <span class="col-lg-3 col-xs-12">{{ formulario.socio }}</span>
+                <span class="col-lg-3 " style="text-align: right">DNI:</span>
+                <span class="col-lg-3 col-xs-12">{{ formulario.dni }}</span>
+            </div>
+            <div style="margin: 10px 0 0 0" class="col-lg-12 col-xs-12">
+                <span class="col-lg-3 col-xs-12">Evento:</span>
+                <span class="col-lg-9 col-xs-12" style="font-size: small">{{ formulario.evento }}{{ formulario.id}}</span>
+            </div>
+            <div style="margin: 10px 0" class="col-lg-12 col-xs-12">
+                <span class="col-lg-9 col-lg-offset-3 col-xs-12" style="font-size: small">{{ formulario.confirmar_evento }}</span>
+            </div>
+
+            <div style="margin: 10px 0" class="col-lg-12 col-xs-12">
+                <span class="col-lg-3 col-xs-12">Comentario:</span><span
+                    class="col-lg-9 col-xs-12">{{ formulario.comentario }}</span>
+            </div>
+            <div class="col-lg-12 col-xs-12 " style="margin: 30px">
+                <input type="submit" class="btn btn-info col-lg-4 col-lg-offset-4 col-xs-4 col-xs-offset-3"
+                       value="ENVIAR"/>
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+
+
+    <div class="polaroid col-lg-12 col-xs-12" style="margin-bottom:20px; padding: 40px; font-size: 1.3em;text-align: center">
+        <p>SERVICIO EXCLUSIVO PARA SOCIOS DEL CLUB CARMONA PÁEZ.</p>
+
+        <p>Con carácter previo hay que abonar la cuota de inscripción en <b>Colchonería Colón</b> o <b>Confecciones
+            El Carmen.</b></p>
+
+    </div>
+
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}
+

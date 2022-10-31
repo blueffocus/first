@@ -1,0 +1,82 @@
+{% extends 'club/index.html' %}
+{% load staticfiles %}
+{% block content %}
+
+
+    <div class="col-lg-12 col-md-12 col-xs-12 pull-left polaroid"
+         style="margin-bottom: 20px; padding: 10px;text-align: center;">
+        <h1 STYLE="text-align: center; color: #5b80b2; font-family:'Trajan Pro 3';">¡ESTADÍSTICAS!</h1>
+        <BR>
+        <p><b>Total de carreras: </b>{{ total.count }}</p>
+        <br>
+        <p><b>Nº de carreras en 2022:</b> {{ porAnio.6.0 }} || {{ porAnio.6.1 }}%</p>
+
+        <p><b>Nº de carreras en 2021:</b> {{ porAnio.5.0 }} || {{ porAnio.5.1 }}%</p>
+
+        <p><b>Nº de carreras en 2020:</b> {{ porAnio.4.0 }} || {{ porAnio.4.1 }}%</p>
+
+        <p><b>Nº de carreras en 2019:</b> {{ porAnio.3.0 }} || {{ porAnio.3.1 }}%</p>
+
+        <p><b>Nº de carreras en 2018:</b> {{ porAnio.2.0 }} || {{ porAnio.2.1 }}%</p>
+
+        <p><b>Nº de carreras en 2017:</b> {{ porAnio.1.0 }} || {{ porAnio.1.1 }}%</p>
+
+        <p><b>Nº de carreras en 2016:</b> {{ porAnio.0.0 }} || {{ porAnio.0.1 }}%</p>
+        <br>
+        <p><b>Nº de Galerias de Fotos: </b>{{ totalG.count }}</p>
+        <p></p>
+        <p><b>Nº de Noticias: </b>{{ totalN.count }}</p>
+        <p></p>
+        <br>
+
+    <div class="col-lg-1 col-lg-offset-1" style="text-align: left">
+
+    </div>
+
+    <div class="col-lg-3 col-lg-offset-1" style="text-align: left">
+        <h5>Top 10 Provincias:</h5>
+        {% for i in porProvincias %}
+            {% if forloop.counter <= 10  %}
+                    <br>
+                    {{ i.0 }}: {{ i.1 }}
+            {% endif %}
+        {% endfor %}
+    </div>
+ <!--
+    <div class="col-lg-1 col-lg-offset-1" style="text-align: left">
+      <h5>Top 10 Ciudades:</h5>
+        {% for i in porCiudad %}
+
+            {% if forloop.counter <= 10  %}
+                    <br>
+                    {{ i.0 }}: {{ i.1 }}
+            {% endif %}
+        {% endfor %}
+
+    </div>
+-->
+
+    <div class="col-lg-3 col-lg-offset-1" style="text-align: left">
+        <h5>Top 10 Tipos:</h5>
+        {% for i in porTipo %}
+
+            {% if forloop.counter <= 10  %}
+                    <br>
+                    {{ i.0 }}: {{ i.1 }}
+            {% endif %}
+        {% endfor %}
+
+    </div>
+    <div class="col-lg-1 col-lg-offset-1" style="text-align: left">
+    </div>
+
+
+    </div>
+
+
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}
+

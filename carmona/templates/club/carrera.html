@@ -1,0 +1,410 @@
+{% extends 'club/index.html' %}
+
+{% block content %}
+
+    <div class="col-lg-12 polaroid  row">
+        <div class="row zero" style="cursor: default">
+            {% if diferencia_dias < 30 and carrera.fecha.timestamp > hoy.timestamp %}
+                {% if diferencia_dias > 1 %}
+                    <div class="col-lg-12 alert alert-warning carrera-alert" role="alert" target="_blank">
+                        ¡ FALTAN {{ diferencia_dias }} DIAS PARA LA CARRERA !<br>EL PLAZO DE INSCRIPCIÓN PUDO HABER
+                        TERMINADO.
+                    </div>
+                {% else %}
+                    <div class="col-lg-12 alert alert-success carrera-alert" role="alert">
+                        ¡ LA CARRERA SE CELEBRA DENTRO DE {{ carrera.fecha|timeuntil }} !
+                    </div>
+                {% endif %}
+            {% elif diferencia_dias <= 0 %}
+                {% if carrera.fecha|date:"Y" == "1" %}
+                <div class="col-lg-12 alert alert-info" role="alert" target="_blank"
+                    style="text-align: center;margin: 0;padding: 0; font-size: medium;">
+                    FECHA Y HORA PENDIENTES DE CONFIRMAR
+                </div>
+                {% else %}
+                <div class="col-lg-12 alert alert-danger" role="alert" target="_blank"
+                    style="text-align: center;margin: 0;padding: 0; font-size: medium;">
+                    LA CARRERA SE CELEBRÓ EL DÍA: {{ carrera.fecha }}
+                </div>
+                {% endif %}
+            {% elif diferencia_dias > 30 %}
+                <div class="col-lg-12 alert alert-info" role="alert" target="_blank"
+                    style="text-align: center;margin: 0;padding: 0; font-size: medium;">
+                    Aún queda {{ carrera.fecha|timeuntil }} para la carrera.
+                </div>
+
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="col-lg-4 col-md-4" style="height: 100%; padding-bottom: 10px ">
+            <a href="../{{ carrera.cartel }}">
+                <div class="carrera-cartel" style="background-image: url('../{{ carrera.cartel }}');"></div>
+            </a>
+<!--
+            {% if carrera.fecha.timestamp > hoy.timestamp %}
+                <span style="padding: 2%">
+
+                        <div style="text-align: left">
+                            <a class="col-lg-4 col-md-offset-4 btn btn-info" style="color: white; margin-top:-10px" href="/inscripcion">Apúntate</a>
+                        </div>
+
+                </span>
+            {% endif %}
+-->
+
+            {% if carrera.resultado %}
+                <h5>CLASIFICACIÓN:</h5>
+                <a href="/{{ carrera.resultado.resultado }}">
+                    <div style="text-align:center; padding:5px 10px;margin:10px auto; background-color: #0d6aad; color: white">
+                        Descargar <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                    </div>
+                </a>
+                <br>
+            {% endif %}
+            {% for f in fotos %}
+                {% if forloop.counter == 1 %}
+                    <h5>GALERIA DE FOTOS:</h5>
+                {% endif %}
+                <a href="{{ f.galeria }}">
+                    <div class="col-lg-4 zero">
+                        <div style="padding:5px 0; margin:3px ; background-color:#0d6aad; color: white; text-align: center">
+                            Galeria {{ forloop.counter }} <i class="fa fa-camera" aria-hidden="true"></i>
+                        </div>
+
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+
+        <h2 style="text-align: center; padding: 10px 0">
+            {{ id.titulo }}
+            <span style="font-size: 0.8em; font-style: italic; opacity: 0.65; padding: 10px 0; ">
+                <br>{{ carrera.ciudad|title }}
+            </span>
+        </h2>
+
+        <div class="col-lg-8">
+            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12"
+                 style="text-align: left; padding:0 20px; z-index: 999;">
+                <p>
+                <span style="padding: 2%">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    {% if carrera.fecha|date:"Y" == "1" %}
+                        Pendiente de confirmar
+                    {% else %}
+                        {{ carrera.fecha|date:"l, d F Y" }}
+                    {% endif %}
+                </span>
+                </p>
+
+                <p>
+                <span style="padding: 2%">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    {% if carrera.fecha|date:"Y" == "1" %}
+                        Pendiente de confirmar
+                    {% else %}
+                        {{ carrera.fecha|date:' H:i' }} horas.
+                    {% endif %}
+                </span>
+                </p>
+
+                <p>
+                <span style="padding: 2%">
+                    {% if carrera.precio != '' %}
+                        {% if carrera.precio == '0' %}
+                            <i class="fa fa-eur" aria-hidden="true"></i> GRATIS.
+                        {% else %}
+                            <i class="fa fa-eur" aria-hidden="true"></i>   {{ carrera.precio }}
+                        {% endif %}
+                    {% endif %}
+                </span>
+                </p>
+
+                <p>
+                <span style="padding: 2%">
+                    {% if carrera.link != '' %}
+                        <i class="fa fa-globe" aria-hidden="true"></i><a href="{{ carrera.link }}" target="_blank"> WEB</a>
+                    {% endif %}
+                </span>
+                </p>
+            </div>
+
+            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12"
+                 style="text-align: left; padding:0 20px; z-index: 999;">
+                <p>
+                <span style="padding: 2%">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i> {{ carrera.ciudad|title }}
+                </span>
+                </p>
+
+                <p>
+                <span style="padding: 2%">
+                    <i class="fa fa-map" aria-hidden="true"></i> {{ carrera.provincia|title }}
+                </span>
+                </p>
+
+                <p>
+                <span style="padding: 2%">
+                    <i class="fa fa-road" aria-hidden="true"></i>
+                    {% if carrera.distancia != empty %}
+                        {{ carrera.distancia }}m.
+                        {% else %}
+                         -----
+                    {% endif %}
+                </span>
+                </p>
+
+                <p>
+                <span style="padding: 2%">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    {% if carrera.tipo != empty %}
+                        {{ carrera.tipo }}
+                    {% else %}
+                        -----
+                    {% endif %}
+                </span>
+                </p>
+
+
+            </div>
+
+
+            <div class="col-lg-12 col-lg-offset-0 col-xs-12" style="z-index: 10; text-align: justify; padding: 3% ">
+                {% if carrera.texto %}
+                    <h5>DETALLES:</h5>
+                    {% autoescape off %}
+                        {{ carrera.texto }}
+                    {% endautoescape %}
+                {% endif %}
+            </div>
+        </div>
+
+        {% for p in participantes %}
+            {% if p.p_carrera_id.id == carrera.id and p.lista != '' %}
+                <div class="col-lg-12 col-xs-12 zero" style="padding:10px 0">
+                    <hr class="col-lg-10 col-lg-offset-1 zero" color="#bbb">
+                    <h4 style="text-decoration:underline; text-align:center">PARTICIPANTES</h4>
+
+                    <div class="lista_participantes">
+                        {% autoescape off %}
+                            <div class="tparticipantes">{{ p.lista }}</div>
+                        {% endautoescape %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    <div class="row col-lg-12 col-xs-12 zero" >
+
+        <div class="col-lg-5 col-xs-12 col-lg-offset-1 col-xs-offset-0 polaroid update_list pull-right zero row" style="margin:20px 0;">
+
+            <div class="col-lg-6 col-xs-6"
+                 style="font-size:large;height:115px; padding:10px;  background-color: #0d6aad ; color:white; text-align: center;font-size: 1.4em; font-weight: 500">
+                NOTA MEDIA
+                <div class="nota_media_dinamica" style="font-size: 1.8em">
+                    {% if nota < 1 %}
+                        <p> - </p>
+                    {% else %}
+                        <p>{{ nota }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 col-xs-6"
+                 style="font-size:large;height: 115px;padding: 10px; background-color: #0d6aad ; color:ghostwhite; text-align: center;font-size: 1.4em; font-weight: 400">
+                TU NOTA
+                <div class="nota_dinamica" style="font-size: 1.6em">
+                    {% if puntos < 1 %}
+                        <p> - </p>
+                    {% else %}
+                        <p>{{ puntos }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="clasificacion col-lg-12" style="text-align: center; padding: 5px 0; font-size: 1em">
+                {% if request.user.is_authenticated == False %}
+                    <p style="padding: 10px 0">
+                        Para puntuar debes estar
+                        <a href="{% url 'login' %}">registrado</a>
+                    </p>
+                {% else %}
+                    {% if carrera.fecha.timestamp > hoy.timestamp %}
+                        <p> La carrera aun no se ha celebrado.  {{ carrera.fecha|timeuntil }}</p>
+                    {% elif puntos|length > 0 %}
+                        {% for p in puntos %}
+                            {% for v in vueltas %}
+                                {% if forloop.revcounter == p.puntuacion %}
+                                    <input id="radio{{ v }}" name="estrellas" data-value="{{ forloop.revcounter }}"
+                                           type="radio"
+                                           class="rating-star zero" checked>
+                                    <label style="margin: 0 -5px; font-size: 3em" for="radio{{ v }}"
+                                           type="radio"
+                                           class="zero">★</label>
+                                {% else %}
+                                    <input id="radio{{ v }}" name="estrellas" data-value="{{ forloop.revcounter }}"
+                                           type="radio"
+                                           class="rating-star zero">
+                                    <label style="margin: 0 -5px; font-size: 3em" for="radio{{ v }}"
+                                           type="radio"
+                                           class="zero">★</label>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        {% for v in vueltas %}
+                            {% if forloop.revcounter == p.puntuacion %}
+                                <input id="radio{{ v }}" name="estrellas" data-value="{{ forloop.revcounter }}"
+                                       type="radio"
+                                       class="rating-star zero" checked>
+                                <label style="margin: 0 -5px; font-size: xx-large" for="radio{{ v }}"
+                                       type="radio"
+                                       class="zero">★</label>
+                            {% else %}
+                                <input id="radio{{ v }}" name="estrellas" data-value="{{ forloop.revcounter }}"
+                                       type="radio"
+                                       class="rating-star zero">
+                                <label style="margin: 0 -5px; font-size: xx-large" for="radio{{ v }}"
+                                       type="radio"
+                                       class="zero">★</label>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+
+        <div class="col-lg-6 col-xs-12 polaroid" style="padding:0 10px; margin:20px 0">
+            <div class='row' style="padding:10px 30px">
+                {% if request.user.is_authenticated == False %}
+                    <p style="padding-top: 25px">
+                        Para comentar debes estar
+                        <a href="{% url 'login' %}">registrado</a>
+                    </p>
+                {% else %}
+                    <div style="margin:25px 0">
+                    <textarea type="text" class="mensaje form-control" cols="30" rows="2"
+                              placeholder="Escribe tu comentario" style="resize:none;margin:10px 0"></textarea>
+                    <div style="text-align: right">
+                        <button class="btn boton_enviar btn-info" style="color: white;">Enviar</button>
+                    </div>
+                     </div>
+
+                {% endif %}
+                <div class="comentario"></div>
+                {% for comentario in comentarios %}
+
+                    <div class="comentario col-lg-12 col-md-12 co-xs-12" style="padding:0 5px" data-comentario-id="{{ comentario.id }}">
+                        <span class='col-lg-12 col-xs-12 col-md-12 zero' style="font-size: x-small; color: #555;"> {{ comentario.fecha|date:"d/m/Y - H:i:s" }}</span>
+                        <span class="col-lg-11 col-xs-8 col-md-10 zero" style="font-size: 1.2em;font-weight:500; color: #0f8bdf">{{ comentario.usuario }}</span>
+
+                        {% if comentario.usuario.id == usuario.id %}
+                            <button class="col-lg-1 col-xs-4 col-md-2 borrar_mensaje zero"
+                                    data-comentario-id="{{ comentario.id }}"
+                                    style="text-align: right; cursor: pointer; z-index:1000; border:none; background:transparent">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </button>
+                        {% endif %}
+                        <div class="col-lg-12 col-xs-12 col-md-12 zero" style="padding:5px 0">{{ comentario.comentario }}</div>
+
+                        {% if forloop.last == False %}
+                            <hr style="border:1px solid #efefef; margin:15px 0" class="zero col-lg-12 col-xs-12">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <script>
+        function enviar_puntos(value) {
+            $.ajax({
+                type: 'get',
+                url: '{% url 'puntuar' %}',
+                data: 'rating=' + value + '&id={{ carrera.id }}',
+                success: function (data) {
+                    $('.nota_dinamica').html(value);
+                    $('.nota_media_dinamica').html(data.media);
+
+                },
+                error: function () {
+
+                    $('.nota_dinamica').html(data.rating);
+                    $('.nota_media_dinamica').html(data.media);
+                }
+            });
+        }
+        $(".rating-star").on('click', function () {
+            enviar_puntos($(this).attr('data-value'));
+        });
+        $('.rating-send').on('click', function () {
+            enviar_puntos($('.value-rating').val());
+        });
+
+        function enviar_mensaje(value) {
+            $.ajax({
+                type: 'get',
+                url: '{% url 'mensaje' %}',
+                data: 'mensaje=' + value + '&id={{ carrera.id }}',
+                success: function (data) {
+                    $('.comentario').first().before(
+                            "<div class='col-lg-12 col-md-12 co-xs-12 comentario' style='padding:0 5px' data-comentario-id='" + data.mensaje_id + "'>" +
+                            "<span class='col-lg-12 col-xs-12 col-md-12 zero' style='font-size: x-small; color: #555'>" + data.fecha + "</span>" +
+                            "<span class='col-lg-11 col-xs-8 col-md-10 zero' style='font-size: 1.2em;font-weight:500; color: #0f8bdf'>" + data.usuario_nombre + "</span>" +
+                            "<button class='col-lg-1 col-xs-4 col-md-2 borrar_mensaje zero' onClick='borrar_mensaje(" + data.mensaje_id + ");'  style='text-align: right; cursor: pointer; z-index:1000; border:none; background:transparent;'>" +
+                            "<i class='fa fa-trash-o'   aria-hidden='true'></i> " +
+                            "</button>" +
+                            "<div class='col-lg-12 col-xs-12 col-md-12 zero' style='padding:5px 0px '>" + data.mensaje + "</div> " +
+                            "<hr style='border:1px solid #efefef; margin:15px 0;' class='zero col-lg-12 col-xs-12'>" +
+                            "</div>"
+                    );
+
+                    $('.mensaje').val('');
+
+                }
+            }).fail(function () {
+                alert("Debe de tener más de 2 caracteres.")
+            });
+        }
+
+        $(".boton_enviar").on('click', function () {
+            enviar_mensaje($(".mensaje").val());
+            return false;
+
+        });
+
+        function borrar_mensaje(value) {
+            $(".comentario[data-comentario-id=" + value + "]").html("");
+            $.ajax({
+                type: 'get',
+                url: '{% url 'borrar_mensaje' %}',
+                data: 'mensaje_id=' + value + '&id={{ carrera.id }}',
+            }).fail(function () {
+                alert('no se pudo borrar el mensaje ' + value)
+            });
+        }
+        $(".borrar_mensaje").on('click', function () {
+            borrar_mensaje($(this).attr('data-comentario-id'));
+            return false;
+        });
+
+    </script>
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}
+
+
+
+

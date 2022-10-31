@@ -1,0 +1,30 @@
+{% extends "club/index.html" %}
+{% block content %}
+
+
+    {% for sec in patrocinador %}
+        <div class="col-lg-12 polaroid col-xs-12" style="padding:0; margin:0 0 40px 0">
+
+                <div class="col-lg-4 col-md-4 col"><a href="{{ sec.cartel }}">
+                    <div style="background-image: url({{ sec.cartel }});background-repeat: no-repeat; background-size: contain; background-position: center; height: 28em; width: auto; min-width: 12em; margin: 40px auto;"></div>
+                </a>
+                </div>
+
+            <h2 style="text-align: center">{{ sec.titulo }}</h2>
+            <div class="col-lg-8 col-xs-12" style="text-align: left; padding: 20px; z-index: 10;">
+
+            {% autoescape off %}
+               &nbsp{{ sec.texto }}
+            {% endautoescape %}
+
+            <hr>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}

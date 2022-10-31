@@ -1,0 +1,45 @@
+{% extends 'club/index.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <div class="polaroid col-lg-12 col-xs-12 pull-left lista_apuntados"
+         style="margin-bottom:20px; padding: auto; font-size: 1.3em; text-align:center;">
+        <h2 class="tituloH2">LISTA DE PARTICIPANTES POR EVENTOS</h2>
+        {% for a in actualizado %}
+            {% if forloop.first %}
+                <h5 class="tituloH3" style="color: #fff; font-weight: 400">Actualizado el {{ a.fecha }} </h5>
+            {% endif %}
+        {% endfor %}
+        <br>
+        <div style="color: #777">
+            <p>Se indica aquellos que se tiene conocimiento de que están inscritos: para quedar, etc...</p>
+
+            <p>Si alguien está inscrito y no se muestra, o no quiere aparecer en el listado, háznoslo saber <a
+                    href="../contacta">aquí.</a></p>
+        </div>
+
+        {% for p in participantes %}
+            {% if p.lista|length > 0 %}
+                <div style="text-align: center; margin: 30px 0px;" class="row">
+                    <h3><a href="{% url 'carrera' id=p.p_carrera_id_id %}">  {{ p.p_carrera_id.titulo|upper }} <br><span
+                            style="font-size:0.8em"> {{ p.p_carrera_id.fecha|date:'d/m/y' }} &nbsp - &nbsp ({{ p.p_carrera_id.ciudad }})</span></a>
+                    </h3>
+
+                    <div class="lista_participantes">
+                        {% autoescape off %}
+                            <div style="text-align: justify; margin:0 auto; padding:0 auto"
+                                 class="tparticipantes">{{ p.lista }}</div>
+                        {% endautoescape %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}

@@ -1,0 +1,310 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta charset="Content-Type: text/html; charset=ISO-8859-1"/>
+    <meta name="google-site-verification" content="lb-wYH7LsWz7g8eOakzldBT4bNje1QMmjkl8YlM02yI"/>
+    <title>Club Carmona Páez</title>
+
+    <script data-cfasync="false" type="text/javascript"
+            src="//filamentapp.s3.amazonaws.com/0b0b0ba19b2d7211f44cd68711952be7.js" async></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js" asyn></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" async></script>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css"/>
+    <link href="{% static 'css/style.css' %}" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="http://www.clubcarmonapaez.com/static/img/head2.gif" rel="image_src"/>
+</head>
+
+<body id="inicio">
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-85453608-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+<header>
+    <div id="cabecera" class="img-responsive" style="padding: 0; margin: 0">
+    </div>
+</header>
+<div class="navbar navbar-default nav" role="navigation" style="padding: 0; margin: 0; border: none">
+
+    <div class="navbar-header nave" style="border: none; ">
+        <button type="button" class="navbar-toggle bmenu" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Desplegar navegación</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Club Carmona Páez</a>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-ex1-collapse naveg zero">
+        <ul class="nav navbar-nav navbar-right zero">
+            {% if request.user.is_authenticated %}
+                <li style="background-color: rgba(30,30,30,0.5);">
+                    <a href="{% url 'logout' %}" style="color: white">Cerrar Sesión</a>
+                </li>
+            {% else %}
+                <li style="background-color: rgba(30,30,30,0.5);">
+                    <a href="{% url 'login' %}" style="color: white">Iniciar Sesión</a>
+                </li>
+            {% endif %}
+            {% if request.user.username == 'administrador' %}
+                <li style="background-color: rgba(30,30,30,0.5);">
+                    <a href="../admin/" style="color: white; background-color: #666">Admin</a>
+                </li>
+            {% endif %}
+        </ul>
+        <div clas="navbar-form navbar-right col-lg-12 col-xs-12">
+            <form method="get" a name="form" action="{% url 'buscar' %}"
+                  class="navbar-form col-xs-12 col-lg-5 navbar-right" style="margin:7px auto;padding:0 15px">
+                <div class="input-group">
+                    <input name="buscar" class="form-control input-md" style=" font-size: 1em; border-right: none"
+                           placeholder="Buscar..." value="" type="text">
+                        <span class="input-group-btn">
+                        <button class="btn btn-bus btn-md"
+                                style="outline: none;height:34px; border-left: none; border-color:#ccc; margin:0 auto;">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        </span>
+                </div>
+            </form>
+
+        </div>
+
+        <ul class="nav navbar-nav" style="margin: 0; padding: 0">
+            <li><a href="/">Noticias</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Calendarios <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href={% url 'calendario' %}>Próximos eventos</a></li>
+                    <li class="divider"></li>
+                    <li><a href={% url 'calendario2' %}>Eventos pasados</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Club <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="../club#presentacion">Presentación</a></li>
+                    <li><a href="../club#historia">Historia</a></li>
+                    <li><a href="../club#biografia">Biografía</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'contacta' %}">Contacta</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/haztesocio">Hazte socio</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Secciones/Escuela <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="../escuela">Escuela de Atletismo</a></li>
+                    <li class="divider"></li>
+                    <li><a href="../triatlon">Triatlón</a></li>
+                    <li class="divider"></li>
+                    <li><a href="../montaña">Montaña</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'galeria' %}">Fotos</a></li>
+            <li><a href="{% url 'resultados' %}">Resultados</a></li>
+
+        </ul>
+    </div>
+</div>
+
+
+<div class="container" id="bloque"
+     style="background-color:transparent; background-size: contain; border: none; margin:0 auto">
+    {% if request.path == "/login/" or request.path == "/registrar" %}
+
+        <div class="col-lg-6 col-md-8 col-xs-12 zero">
+            {% block content_login %}
+            {% endblock %}
+        </div>
+
+
+    {% else %}
+        <div class="col-lg-12 col-md-12" style="margin:1% 0">
+            <div class="col-lg-4 col-md-4 col-xs-12 col-xs-offset-0 pull-right" style="margin-bottom: 20px;">
+                <div class="panel panel-primary polaroid menu2">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">PRÓXIMOS EVENTOS</h4>
+                    </div>
+                    <div class="panel-body" style="">
+                        <ul class="list-group">
+                            {% for carrera in proximos %}
+                                {% if carrera.fecha.date >= hoy.date %}
+                                    <a href="{% url 'carrera' id=carrera.id %}">
+                                    <span title='{{ carrera.titulo }}-{{ carrera.ciudad|upper }}'>
+                                        <li class="list-unstyled {% cycle 'par' 'impar' %}">
+                                            <p class="carrera-titulo">{{ carrera.titulo|upper }}</p>
+                                            {{ carrera.fecha|date:'d/m/y' }}
+                                            {% if carrera.ciudad != '' and carrera.titulo %}
+                                                - {{ carrera.ciudad|title }}
+                                            {% endif %}
+                                        </li>
+                                    </span>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-primary polaroid menu2">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">ÚLTIMOS RESULTADOS</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+
+                            {% for r in carreras %}
+                                {% if forloop.counter <= 5 %}
+                                    <a href="{% url 'carrera' id=r.id %}">
+                                        <li class="list-unstyled {% cycle 'par' 'impar' %}">
+                                            <p class="carrera-titulo">{{ r.titulo|upper }}</p>
+                                            {{ r.fecha|date:'d/m/y' }} - {{ r.ciudad|title }}
+                                        </li>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-primary polaroid">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">ZONA SOCIOS</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-unstyled par">
+                                <a href="../inscripcion">INSCRIPCIÓN A EVENTO</a>
+                            </li>
+                            <li class="list-unstyled par">
+                                <a href="../listaparticipantes">LISTA DE PARTICIPANTES</a>
+                            </li>
+                            <li class="list-unstyled par">
+                                <a href="../liga">LIGA INTERNA</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            <div class="col-lg-8 col-md-8 col-xs-12">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+
+
+<footer class="col-lg-12 zero" style=" background-color: #ddd; cursor: default">
+    <div class="col-lg-4" style="padding-top: 10px; border-right: 0.05em solid #f0f0f0">
+        <p>Club de Atletismo Carmona Páez.</p>
+
+        <p><span class="glyphicon glyphicon-map-marker"></span> Plaza Emperador Carlos, s/n.<br> 11100 San Fernando
+            (Cádiz).</p>
+
+        <p><span class="glyphicon glyphicon-earphone"></span> 655826975</p>
+
+        <p><span class="glyphicon glyphicon-envelope"></span><a href="mailto:clubatletismocarmonapaez@gmail.com"
+                                                                style="color: #2e2e2e">
+            clubatletismocarmonapaez@gmail.com</a>
+        </p>
+    </div>
+    <div class="col-lg-4" style="border-right:0.05em solid #f0f0f0; padding-top: 10px; height: 140px;">
+        <p>La sede social del club tiene el siguiente horario habitual de apertura:
+            <br>
+            <span class="glyphicon glyphicon-time"></span> Viernes a las 21:00 horas.
+        </p>
+        <br>
+
+        <p>Siguenos en:
+            <a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/groups/264525040262137/?fref=ts"
+               target="_blank">
+                <span class="fa fa-facebook"></span>
+            </a>
+            <a class="btn btn-social-icon btn-instagram" href="https://www.instagram.com/clubcarmonapaez/?hl=es"
+               target="_blank">
+                <span class="fa fa-instagram"></span>
+            </a>
+        </p>
+    </div>
+    <div class='col-lg-4' style="text-align: right; padding-top: 20px">
+        <p>Sitio web desarrollado por:</p>
+
+        <p><a href="mailto:sebastianutrerabonet@gmail.com"
+              style="margin-bottom: 20px; font-size: larger; color: #0077dd">Sebastián Utrera.</a></p>
+
+        <p><a href="{% url 'haztesocio' %}" class="btn btn-info col-lg-4 col-lg-offset-8 right">HAZTE SOCIO</a></p>
+    </div>
+    <div class='col-lg-12' style='text-align: center; background-color:#757575; color: white;"'>
+        <div class='col-lg-6 col-lg-offset-3' style="padding: 5px">
+            <div class='col-lg-4'>
+                <a data-toggle="modal" data-target="#protecciondedatos" style="color: white;cursor: pointer;">Protección de Datos</a>
+            </div>
+            <div class='col-lg-4'>
+                <a data-toggle="modal" data-target="#avisolegal" style="color: white;cursor: pointer;">Aviso Legal</a>
+            </div>
+            <div class='col-lg-4'>Copyright. &copy 2016</div>
+        </div>
+    </div>
+</footer>
+
+<div class="modal fade" id="protecciondedatos" tabindex="1" style="z-index:9999999;" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            {% include 'club/proteccion-de-datos.html' %}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="avisolegal" tabindex="1" style="z-index:9999999;" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            {% include 'club/aviso-legal.html' %}
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

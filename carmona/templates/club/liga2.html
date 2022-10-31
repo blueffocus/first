@@ -1,0 +1,46 @@
+{% extends 'club/index.html' %}
+{% block content %}
+
+    <div class="polaroid col-lg-12 col-xs-12 lista_apuntados" style="margin-bottom:20px; font-size: 1.3em; text-align: center;">
+        <h3 class="tituloH2">CLASIFICACIÓN DE LA LIGA "MANUEL JESÚS LÓPEZ LEÓN"</h3>
+        <h5 class="tituloH3" style="color: #fff; font-weight: 400">Actualizado el {{ actualizado }} </h5>
+
+
+            <div style="margin: 40px 0px;">
+                {% autoescape off %}
+                    <div style="text-align: justify;" class='col-xs-12 liga'>{{ liga.lista }}</div>
+                {% endautoescape %}
+            </div>
+
+
+        <div class="col-lg-12 col-xs-12" style="margin:20px 0">
+            <hr>
+            <p>Para cualquier notificación referente a la Liguilla Interna ponerse en contacto con <a
+                    href="mailto:magola56@yahoo.es">magola56@yahoo.es</a></p>
+            <a class="btn-info btn col-lg-3 col-lg-offset-2  col-xs-12" role="button"
+               style="text-align: center; vertical-align: middle; font-size: medium; margin-top: 50px;"
+               href="static/archivos/liguilla interna 2022.pdf">
+                NORMATIVA PDF</a>
+
+            <a class="btn-info btn col-lg-3  col-lg-offset-2 col-xs-12" role="button"
+               style="text-align: center; vertical-align: middle; font-size: medium; margin-top: 50px;"
+               data-toggle="modal" data-target="#ventana">
+                 VER NORMATIVA</a>
+
+            <div class="modal fade" id="ventana" tabindex="1" style="z-index:9999999;"  role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                       {% include 'club/normas_liga.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}

@@ -1,0 +1,85 @@
+<div class="col-lg-4 col-xs-12 col-xs-offset-0 pull-right" id="menu2" style="padding-bottom: 20px">
+    <div class="col-lg-12 col-xs-12 polaroid" style="background-color: white; padding:0 0 0px 0">
+        <h4 style="text-align: center; background-color: #c7ddef; margin:0; padding: 10px; cursor: default">
+            PRÓXIMOS EVENTOS</h4>
+
+        <div class="col-lg-12" style="padding:0px; font-size: smaller ">
+            <ul class=" list-group">
+                {% for carrera in carreras %}
+
+                    {% if carrera.fecha.date >= hoy.date and carrera.resultado == '' %}
+                        {% if forloop.counter|divisibleby:2 != 0 %}
+                            <li class="list-unstyled" style="vertical-align: middle; padding: 5px 6px">
+                                <a href="carrera/{{ carrera.id }}">{{ carrera.fecha|date:'d/m/y' }}
+                                    - {{ carrera.titulo|upper }} ({{ carrera.ciudad|title }})</a>
+                            </li>
+                            {% if forloop.last != True %}
+                                <hr style="padding: 0px; border: 1px solid #ddd; margin: 5px 0 0 0">
+                            {% endif %}
+                        {% else %}
+                            <li class="list-unstyled"
+                                style="vertical-align: middle;background-color: #eee; padding:5px 6px">
+                                <a href="carrera/{{ carrera.id }}">{{ carrera.fecha|date:'d/m/y' }}
+                                    - {{ carrera.titulo|upper }} ({{ carrera.ciudad|title }})</a>
+                            </li>
+                            {% if forloop.last != True %}
+                                <hr style="padding: 0px; border: 1px solid #ddd; margin: 0 0 5px 0">
+                            {% endif %}
+                        {% endif %}
+
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+    <div class="col-lg-12 col-xs-12 polaroid"
+         style="background-color: white; margin:  20px 0; padding: 0 0 0px 0">
+        <h4 style="text-align: center; background-color: #c7ddef; margin:0; padding: 10px;">ULTIMOS
+            RESULTADOS</h4>
+
+        <div class="col-lg-12" style="padding:0px; font-size: smaller">
+            <ul class=" list-group">
+                {% for r in carreras %}
+                    {% if r.resultado != '' and r.fecha.date <= hoy.date %}
+                        {% if forloop.counter|divisibleby:2 == 0 %}
+                            <li class="list-unstyled" style="vertical-align: middle; padding: 5px 6px">
+                                <a href="{{ r.resultado }}">{{ r.fecha|date:'d/m/y' }}- {{ r.titulo|upper }}
+                                    ({{ r.ciudad|title }})</a>
+                            </li>
+                            {% if forloop.last != True %}
+                                <hr style="padding: 0px; border: 1px solid #ddd; margin: 5px 0 0 0">
+                            {% endif %}
+                        {% else %}
+                            <li class="list-unstyled"
+                                style="vertical-align: middle;background-color: #eee; padding:5px 6px">
+                                <a href="{{ r.resultado }}">{{ r.fecha|date:'d/m/y' }}- {{ r.titulo|upper }}
+                                    ({{ r.ciudad|title }})</a>
+                            </li>
+                            </li>
+                            {% if forloop.last == True %}
+                                <hr style="padding: 0px; border: 1px solid #ddd; margin: 0 0 5px 0">
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-12 col-xs-12 polaroid"
+         style="background-color: white; margin:0; padding: 0 0 0px 0">
+        <h4 style="text-align: center; background-color: #c7ddef; margin:0; padding: 10px; cursor: default">ZONA
+            SOCIOS</h4>
+
+        <div class="col-lg-12" style="padding-top:6px;">
+            <ul class=" list-group">
+                <li class="list-unstyled" style="vertical-align: middle; padding: 4px 0 0">
+                    <a href="inscripcion">INSCRIPCIÓN A EVENTO</a>
+                </li>
+                <li class="list-unstyled" style="vertical-align: middle; padding: 4px 0 0">
+                    <a href="listaparticipantes">LISTA DE PARTICIPANTES</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

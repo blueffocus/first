@@ -1,0 +1,29 @@
+{% extends 'club/index.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+    {% include 'club/noticias.html' %}
+
+    {% block js %}
+        {{ block.super }}
+        <script src="http://code.jquery.com/jquery-latest.min.js" ></script>
+        <script src="{{ STATIC_URL }}static/js/el-pagination.js" ></script>
+        <script>
+            $.endlessPaginate({
+                paginateOnScroll: true,
+                paginateOnScrollMargin: 500
+            });
+        </script>
+    {% endblock %}
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}
+
+
+
+

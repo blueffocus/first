@@ -1,0 +1,68 @@
+{% extends 'club/index.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="row" style="margin:0">
+        <div class="col-lg-12 col-xs-12 pull-left polaroid" style="margin:0 0 40px 0">
+            <h2 class="tituloH2">TODOS LOS RESULTADOS</h2>
+
+            <div style="margin:15px auto" class="post-form col-lg-12 col-xs-12">
+                <form method="get"
+                      class="post-form col-lg-offset-4 col-lg-4 col-md-4 col-xs-10 col-md-offset-4 col-xs-offset-1"
+                      id="año"
+                      name="sel" role="search" action="{% url 'resultados' %}">{% csrf_token %}
+                    <div class="col-lg-8 col-md-8 col-xs-8">
+                        {{ form.sel }}
+                    </div>
+                    <button class="col-lg-4 col-md-4 col-xs-4 btn btn-default" type="submit" value="sel">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+            {% if  query > "2015" %}
+                {% for c in carreras %}
+                    {% if forloop.first %}
+                        <h3 class="tituloH3">{{ query }}</h3>
+                    {% endif %}
+                    {% if c.fecha.date <= hoy.date and c.resultado != None and query == c.fecha|date:'Y' %}
+                        <a href="{% url 'carrera' id=c.id %}">
+                            <div class="col-lg-12 col-xs-12 lista {% cycle 'par' 'impar' %}">
+
+                                    <span class="col-lg-1 col-xs-12">{{ c.fecha|date:'d/M' }} </span>
+                                    <span class="col-lg-6 col-xs-12" style="color:#595959">{{ c.titulo|upper|truncatechars:55 }}</span>
+                                    <span class="col-lg-4 col-xs-12">
+                                        {% if c.ciudad != '' %}
+                                            {{ c.ciudad|title }}
+                                        {% endif %}
+                                    </span>
+
+                                    <span class="col-lg-1 col-xs-12" style="text-align:right" >
+                                        <a href="{{ c.resultado.resultado }}" class="button btn-default btn-xs">Descargar</a>
+                                    </span>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for c in lista %}
+                    {% if forloop.first %}
+                        <h3 class="tituloH3">{{ query }}</h3>
+                    {% endif %}
+                    <a href="static/resultados/{{ c }}">
+                        <div class="col-lg-12 col-xs-12 lista {% cycle 'par' 'impar' %}">
+                            <span class="col-lg-3 col-xs-12">{{ c|slice:"6:8" }}/{{ c|slice:"4:6" }}/{{ c|slice:"4" }} </span>
+                            <span class="col-lg-8 col-xs-12">{{ c|slugify|upper|slice:"9:-3" }} </span>
+                        </div>
+                    </a>
+
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}

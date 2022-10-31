@@ -1,0 +1,105 @@
+
+                <div class="panel  polaroid menu2">
+                    <div class="panel-heading">
+                        <a href="http://www.clubcarmonapaez.com/calendario">
+                          <h4 class="panel-title" style="color:white">PRÓXIMOS EVENTOS</h4>
+                        </a>
+                    </div>
+                    <div class="panel-body" style="">
+                        <ul class="list-group">
+                            {% for carrera in proximos %}
+                                {% if carrera.fecha.date >= hoy.date %}
+                                    <a href="[% url 'carrera' id=carrera.id %]">
+                                    <span title='{{ carrera.titulo }}-{{ carrera.ciudad|upper }}'>
+                                        <li class="list-unstyled {% cycle 'par' 'impar' %}">
+                                            <p class="carrera-titulo">{{ carrera.titulo|upper }}</p>
+                                            {{ carrera.fecha|date:'d/m/y' }}
+                                            {% if carrera.ciudad != '' and carrera.titulo %}
+                                                - {{ carrera.ciudad|title }}
+                                            {% endif %}
+                                        </li>
+                                    </span>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel polaroid menu2">
+                    <div class="panel-heading">
+                        <a href="http://www.clubcarmonapaez.com/resultados">
+                          <h4 class="panel-title" style="color:white">ÚLTIMOS RESULTADOS</h4>
+                        </a>
+
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            {% for r in carreras %}
+                                {% if forloop.counter <= 5 %}
+                                    <a href="[% url 'carrera' id=r.id %]">
+                                        <li class="list-unstyled {% cycle 'par' 'impar' %}">
+                                            <p class="carrera-titulo">{{ r.titulo|upper }}</p>
+                                            {{ r.fecha|date:'d/m/y' }} - {{ r.ciudad|title }}
+                                        </li>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="panel  polaroid">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">ZONA SOCIOS</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <a href="[% url 'inscripcion' %]">
+                            <li class="list-unstyled par">
+                                INSCRIPCIÓN A EVENTO
+                            </li>
+                            </a>
+                            <a href="[% url 'participantes' %]">
+                                <li class="list-unstyled par">
+                                    LISTA DE PARTICIPANTES
+                                </li>
+                            </a>
+                            <a href="[% url 'liga' %]">
+                            <li class="list-unstyled par">
+                                LIGA INTERNA
+                            </li>
+                            <li class="list-unstyled par">
+                                <a href="[% url 'entrenamiento' %]">ENTRENAMIENTOS</a>
+                            </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+                                <div class="panel  polaroid">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"></h4>
+                    </div>
+                    <div class="panel-body">
+<div style="text-align:center;padding:1em 0;"> <h3><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/es/city/2511388"><span style="color:gray;">Hora actual en</span><br />San Fernando, España</a></h3> <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=medium&timezone=Europe%2FMadrid" width="100%" height="115" frameborder="0" seamless></iframe> </div>
+                    </div>
+                </div>
+
+
+
+                    <div class="panel-body">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="+4a+ql+1q-cu+a4"
+     data-ad-client="ca-pub-2140157842826224"
+     data-ad-slot="6524883192"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+                    </div>
+
+

@@ -1,0 +1,62 @@
+{% extends "club/index.html" %}
+{% block content %}
+
+
+<div class="row">
+    <div class="cardview" style="margin:auto 30px">
+        {% for post in posts %}
+
+            <div class="row ficha-box-title general-padding-margin-0">
+                <h2 class="general-padding-margin-0">{{ post.titulo }}</h2>
+            </div>
+
+            {% if post.cartel == "" %}
+
+
+            <div style="height: 25em">
+
+                <div class="ficha-box-img-fondo" style="background-image: url('../static/img/imagenes/nofoto.jpg')">
+                </div>
+                <a href="../{{ post.cartel }}">
+                <div class="ficha-box-img" style="background-image: url('../static/img/imagenes/nofoto.jpg)">
+
+                </div>
+                </a>
+            </div>
+            {% else %}
+                <div style="height: 25em">
+
+                <div class="ficha-box-img-fondo" style="background-image: url('../{{ post.cartel }}')">
+                </div>
+                <a href="../{{ post.cartel }}">
+                <div class="ficha-box-img" style="background-image: url('../{{ post.cartel }}')">
+
+                </div>
+                </a>
+            </div>
+            {% endif %}
+
+
+
+            <div class="row ficha-box-content general-padding-margin-0">
+                {% autoescape off %}
+                    {{ post.texto }}
+                {% endautoescape %}
+            </div>
+            <div class="row ficha-box-date general-padding-margin-0">
+                <p title="{{ post.fecha_publicacion|date:'l' }}, {{ post.fecha_publicacion }}h">{{ post.fecha_publicacion|date:"d M Y, H:i" }}h</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+{% block lateral %}
+    {% include 'club/bloque_lateral.html' %}
+{% endblock %}
+
+
+
