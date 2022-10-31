@@ -3,7 +3,6 @@
 from django.contrib.auth.models import AbstractUser, User
 from django.utils import timezone
 from django.db import models
-from ckeditor.fields import RichTextField
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 import datetime
@@ -49,7 +48,7 @@ class Post(models.Model):
 	titulo = models.CharField(max_length=250)
 	foto = models.ForeignKey(Imagen, on_delete=models.DO_NOTHING, blank=True, null=True)
 	cartel = models.CharField(max_length=250, blank=True, null=True)
-	texto = RichTextField(max_length=99999999)
+	texto = models.CharField(max_length=99999999)
 	fecha_publicacion = models.DateTimeField(blank=True, null=True, default=now())
 	visible = models.BooleanField(default=True)
 
@@ -94,7 +93,7 @@ class Carrera(models.Model):
 	tipo = models.ForeignKey(Tipo, on_delete=models.DO_NOTHING, blank=True, null=True)
 	destacada = models.BooleanField(default=True)
 	resultado = models.OneToOneField(Resultado, on_delete=models.DO_NOTHING, blank=True, null=True)
-	texto = RichTextField(max_length=99999999, blank=True, null=True)# Descripción y detalles extras de la carrera
+	texto = models.CharField(max_length=99999999, blank=True, null=True)# Descripción y detalles extras de la carrera
 
 	def __str__(self):
 		str = '%s - %s' % (self.fecha.strftime('%d/%m/%y'), self.titulo)
@@ -122,14 +121,14 @@ class Album(models.Model):
 
 class Participante(models.Model):
 	p_carrera_id = models.ForeignKey(Carrera, on_delete=models.DO_NOTHING, blank=True, null=True)
-	lista = RichTextField(max_length=99999999,blank=True, null=True)
+	lista = models.CharField(max_length=99999999,blank=True, null=True)
 	fecha = models.DateTimeField(auto_now=True)
 	Caducada = models.BooleanField(default=False)
 	def __str__(self):
 		return str(self.p_carrera_id.fecha.strftime("%d/%m/%y"))+"  -  "+str(self.p_carrera_id.titulo)
 
 class Liga(models.Model):
-	lista = RichTextField(max_length=99999999,blank=True, null=True)
+	lista = models.CharField(max_length=99999999,blank=True, null=True)
 	fecha = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
@@ -161,7 +160,7 @@ class Patrocinador(models.Model):
 	titulo = models.CharField(max_length=250)
 	foto = models.ForeignKey(Imagen, on_delete=models.DO_NOTHING, blank=True, null=True)
 	cartel = models.CharField(max_length=250, blank=True, null=True)
-	texto = RichTextField(max_length=99999999)
+	texto = models.CharField(max_length=99999999)
 
 	def save(self, *args, **kwargs):
 		if self.foto != None:
