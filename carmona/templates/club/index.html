@@ -342,7 +342,7 @@ if (ie4up||ns6up){
                 </li>
             {% else %}
                 <li style="background-color: rgba(30,30,30,0.5);">
-                    <a href="{% url 'login' %}" style="color: white">Iniciar Sesión</a>
+                    <a href="[% url 'login' %]" style="color: white">Iniciar Sesión</a>
                 </li>
             {% endif %}
             {% if request.user.is_staff %}
