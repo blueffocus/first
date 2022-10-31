@@ -101,13 +101,13 @@ class AdminResultado(admin.ModelAdmin):
     r = Resultado.objects.all()
     listaresultados = []
     import  os
-    lista = (os.listdir(path="./static/resultados"))
+    lista = (os.listdir(path="./static"))
     for re in r:
         listaresultados.append(re.resultado.__str__()[18:])
 
     for l in lista:
         if l not in listaresultados:
-            model_resultados = Resultado.objects.create(resultado='static/resultados/'+ l)
+            model_resultados = Resultado.objects.create(resultado='static/'+ l)
             model_resultados.save()
 
 class AdminImagen(admin.ModelAdmin):
